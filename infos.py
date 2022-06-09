@@ -1,6 +1,7 @@
 import tkinter as tk  # Comando "pip install tk" no Prompt de Comando
 from tkinter import *  # Importar todos os módulos do TKINTER
 from subprocess import call  # Subprocesso "call" que "chama" (executa) outros programas
+""" Ferramenta para processamento de imagens"""
 import PIL  # Comando "pip install Pillow" no Prompt de Comando
 from PIL import ImageTk, Image  # Importa somente os módulos citados de PIL
 
@@ -32,6 +33,7 @@ INFO_M87 = '\n\nEm 2019, astrônomos surpreenderam o mundo\ncom a primeira image
 INFO_ISS = '\n\nA Estação Espacial Internacional (International\nSpace Station - ISS) é um laboratório espacial\ncompletamente concluído,\ncuja montagem em órbita começou em 1998\ne terminou oficialmente em 8 de julho de 2011.\n\n\nA estação encontra-se em uma órbita baixa, que\npossibilita ser vista da Terra a olho nu,\ne viaja a uma velocidade média de 27 700 km/h,\ncompletando 15,70 órbitas por dia.\nCom isso, os astronautas conseguem visualizar o\nnascer e o pôr do Sol, em média, cerca de\n16 vezes por dia.\n\n\nA Estação Espacial Internacional, junta à\nEstação Espacial Chinesa (já tripulada), representa\na atual permanência humana no espaço e tem sido\nmantida com tripulações\n(geralmmente, mais de três astronautas)\ndesde o ano 2000.\n\n\nO objetivo da missão colaborativa da ISS é,\nbasicamente, realizar experimentos\ne monitoramentos, uma vez que o laboratório\nnão está completamente exposto às avarias\ncausadas pela atmosfera terrestre.'
 
 # Variáveis do nome da imagem e da sua descrição
+""" Serão utilizadas dentro da função planeta"""
 imagem_nome = ""
 texto_nome = ""
 
@@ -41,6 +43,7 @@ root.title('CARACTERÍSTICAS DOS PLANETAS')
 root.resizable(0, 0)  # Define que a janela não poderá ser redimensionada
 
 # Função "planeta" com o atributo "event" (evento), para quando um planeta é selecionado
+""" Event é um parâmetro"""
 def planeta(event):
     planeta_escolhido = clicado.get()  # Evento de quando um planeta, dentro da lista de planetas, é selecionado
 
@@ -89,20 +92,34 @@ def planeta(event):
         texto_nome = INFO_ISS
 
     # Abre a imagem correspondente ao nome do planeta, inicialmente, com a largura de 400 pixels 
+    """ Abrindo a imagem"""
     imagem = Image.open(imagem_nome)
     largurabase = 400
 
     # Define uma "label" de 400x400 dentro da janela e exibe a imagem correspondente, ajustando-a ao tamanho da "label"
+    """ Relief define o tipo da borda
+     bd define a largura da borda em pixels
+     highlight coloca uma borda branca que n entendi o motivo"""
     canvas2 = tk.Canvas(root, height=400, width=400, bg='#000', bd=0, highlightthickness=0, relief='ridge')
     larg = (largurabase / float(imagem.size[0]))  # Redefine a imagem para a largura de 400 p
     altur = int((float(imagem.size[1]) * float(larg)))  # Redefine a imagem para a altura de 400 p
+
+    """ Método resize retorna uma cópia da imagem redimensionada
+    ANTIALIAS realiza um filtro, mas não entendi direito"""
     imagem = imagem.resize((largurabase, altur), PIL.Image.ANTIALIAS)
+
+    """ O photoimagem formata a imagem para ser utilizada no canvas2."""
     photo = ImageTk.PhotoImage(imagem)
+
+    """ Primeiros argumentos é da posição da imagem x e y
+    Essa variável é desprezável pois retorna o id da imagem"""
     item4 = canvas2.create_image(225, 210, image=photo)
 
     canvas2.place(relx=0.05, rely=0.1, relheight=0.8, relwidth=0.5)  # Define a posição em que a "label" se encontra na janela
 
     for widget in frame_descr.winfo_children():  # Ao selecionar um planeta, as definições anteriores apresentadas em tela são eliminadas para que somente o planeta selecionado seja exibido
+
+        """ Remove o widget"""
         widget.destroy()
         
     frame_inicio.destroy()  # Substitui a janela inicial após selecionar um planeta
@@ -112,7 +129,7 @@ def planeta(event):
     label_planeta = tk.Label(frame_descr, text=texto_nome, font=('Gadugi', 10), bg='#000', fg='white')
     label_planeta.pack()
 
-    item4.pack()  # Método usado para "compactar" o que será exibido no programa em colunas
+    # item4.pack()  # Método usado para "compactar" o que será exibido no programa em colunas
 
 # Função "Open". Quando executada, abre (chama) a aplicação "app.py"
 def Open1():
@@ -122,11 +139,22 @@ def Open2():
     call(["python", "iss.py"])  # Open2 = Programa da Estação Espacial
 
 # Define um plano de fundo (canvas) onde as informações serão exibidas, com a altura e a largura da própria janela e cor preta (#000)
+""" Canvas serve para desenhar as coisas, pode ser pai, mas não é feito pra isso.
+ Armazena os botões, não o dropdown"""
 canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH, bg='#000')
+
+""" Pack organiza em blocos antes de colocá-los no pai"""
 canvas.pack()
 
 # Define um plano de fundo, onde a descrição dos planetas será exibida, sua cor, seu tamanho e sua posição 
+""" O frame representa um container para outros widgets """
+""" Widgets são os elementos de interface gráfica"""
 frame_descr = tk.Frame(root, bg='#000')
+
+""" Método place organiza os widgets do frame"""
+""" relx e y seriam os deslocamentos entre 0.0 e 1.0 como fração da largura e altura do pai, da esquerda para direita"""
+""" relheight e width são frações da altura e largura do pai"""
+""" Não senti diferença em alterar os rel"""
 frame_descr.place(relx=0.55, rely=0.1, relheight=1, relwidth=0.4)
 
 # Define o conteúdo da janela inicial
@@ -135,6 +163,8 @@ frame_inicio.place(relx=0, rely=0.1, relheight=1, relwidth=1)
 
 # Lista com os nomes dos objetos a serem escolhidos
 opcao = ['Mercúrio', 'Vênus', 'Terra', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Netuno', 'M87', 'Sagittarius', 'ISS']
+
+""" StringVar auxilia na gerencia do valor de um widget como o label"""
 clicado = StringVar()
 clicado.set(opcao[2])  # Estabelece que o programa sempre iniciará com a opção [2] (Terra) pré-selecionada
 lista = OptionMenu(root, clicado, *opcao)  # Cria o menu drop-down com todos os objetos da lista "opcao". "clicado" retorna o valor (objeto) selecionado para a função "planeta"
@@ -142,6 +172,8 @@ lista.place(relx=0.3, rely=0.01, relheight=0.05, relwidth=0.1)  # Define a posi�
 
 # Cria um botão de seleção ligado à função "planeta". Define o texto exibido, sua posição e seu tamanho
 botao = tk.Button(canvas, text='ENTER')
+
+""" Bind está associando um evento e uma função ao botão. button-1 é um evento."""
 botao.bind('<Button-1>', planeta)
 botao.place(relx=0.4, rely=0.01, relheight=0.05, relwidth=0.1)
 
@@ -172,6 +204,7 @@ Clique em "ISS Track" para exibir a localização aproximada da Estação Espaci
 '''
 
 # Define o conteúdo da janela inicial, o plano de fundo, a cor e a fonte
+""" Label define uma caixa de exibição. Fg é cor do texto"""
 janela_inicial1 = tk.Label(frame_inicio, text=texto1, font=('Times New Roman', 19), bg='#000', fg='white')
 janela_inicial1.pack()
 

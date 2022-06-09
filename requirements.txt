@@ -1,0 +1,6 @@
+tk==0.1.0
+Pillow==9.1.1
+PythonTurtle==0.3.2
+# urllib==3.10.5
+pygame==2.1.2
+python-math==0.0.1

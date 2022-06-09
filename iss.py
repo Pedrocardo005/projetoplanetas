@@ -6,14 +6,20 @@ import time
 
 # Utilizando o módulo "Turtle" para ajustar os parâmetros da janela
 janela = turtle.Screen()
+
+# Seta o tamanho da janela
 janela.setup(1280, 720)
 janela.setworldcoordinates(-220,-120,220,120)  # Determina os limites da tela onde a ISS poderá percorrer (ajustável)
 janela.title("LOCALIZAÇÃO DA ISS")
 
 # Exibe a imagem do Mapa-múndi na tela como plano de fundo
 janela.bgpic("mapa.gif")
+
+""" Adicionando na lista de formas"""
 janela.register_shape("iss.gif")
 iss = turtle.Turtle()
+
+""" Pegando a forma registrada acima"""
 iss.shape("iss.gif")
 iss.setheading(45)  # Orientação (ângulo) da movimentação da ISS na tela
 iss.penup()  # Determina que a ISS não "desenhará" na tela ao mudar de posição

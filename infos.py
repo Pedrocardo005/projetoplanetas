@@ -137,19 +137,14 @@ frame_inicio.place(relx=0, rely=0.1, relheight=1, relwidth=1)
 opcao = ['Mercúrio', 'Vênus', 'Terra', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Netuno', 'M87', 'Sagittarius', 'ISS']
 clicado = StringVar()
 clicado.set(opcao[2])  # Estabelece que o programa sempre iniciará com a opção [2] (Terra) pré-selecionada
-lista = OptionMenu(root, clicado, *opcao)  # Cria o menu drop-down com todos os objetos da lista "opcao". "clicado" retorna o valor (objeto) selecionado para a função "planeta"
-lista.place(relx=0.3, rely=0.01, relheight=0.05, relwidth=0.1)  # Define a posição e o tamanho do menu
-
-# Cria um botão de seleção ligado à função "planeta". Define o texto exibido, sua posição e seu tamanho
-botao = tk.Button(canvas, text='ENTER')
-botao.bind('<Button-1>', planeta)
-botao.place(relx=0.4, rely=0.01, relheight=0.05, relwidth=0.1)
+lista = OptionMenu(root, clicado, *opcao, command=planeta)  # Cria o menu drop-down com todos os objetos da lista "opcao". "clicado" retorna o valor (objeto) selecionado para a função "planeta"
+lista.place(relx=0.35, rely=0.01, relheight=0.05, relwidth=0.1)  # Define a posição e o tamanho do menu
 
 # Cria mais dois botões e determina seu tamanho e posição
 botao2 = tk.Button(canvas, text='Órbitas', command=Open1)  # Define que o comando do botão é acionar a função "Open1"
-botao2.place(relx=0.5, rely=0.01, relheight=0.05, relwidth=0.1)
+botao2.place(relx=0.45, rely=0.01, relheight=0.05, relwidth=0.1)
 botao3 = tk.Button(canvas, text='ISS Track', command=Open2)  # Define que o comando do botão é acionar a função "Open2"
-botao3.place(relx=0.6, rely=0.01, relheight=0.05, relwidth=0.1)
+botao3.place(relx=0.55, rely=0.01, relheight=0.05, relwidth=0.1)
 
 # Texto exibido na janela inicial
 texto1 = '''
